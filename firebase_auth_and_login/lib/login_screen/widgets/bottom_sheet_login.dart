@@ -20,28 +20,40 @@ class BottomSheetLogin extends StatelessWidget {
             borderRadius: BorderRadius.only(
                 topRight: Radius.circular(20.0),
                 topLeft: Radius.circular(20.0)),
-            color: backgroundColor,
+            color: Colors.transparent,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              IconButton(
-                icon: googleIcon,
-                onPressed: () {
-                  googleBottomSheet(context);
-                },
+              CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 25,
+                child: IconButton(
+                  icon: googleIcon,
+                  onPressed: () {
+                    googleBottomSheet(context);
+                  },
+                ),
               ),
-              IconButton(
-                icon: yahooIcon,
-                onPressed: () {
-                  yahooBottomSheet(context);
-                },
+              CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 25,
+                child: IconButton(
+                  icon: yahooIcon,
+                  onPressed: () {
+                    yahooBottomSheet(context);
+                  },
+                ),
               ),
-              IconButton(
-                icon: twitterIcon,
-                onPressed: () {
-                  twitterBottomSheet(context);
-                },
+              CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 25,
+                child: IconButton(
+                  icon: twitterIcon,
+                  onPressed: () {
+                    twitterBottomSheet(context);
+                  },
+                ),
               ),
             ],
           ),
