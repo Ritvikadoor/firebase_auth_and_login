@@ -1,12 +1,11 @@
+import 'package:firebase_auth_and_login/home_screen/widgets/backgroundimage_widget.dart';
 import 'package:firebase_auth_and_login/sign_up_screen/provider/signup_screen_provider.dart';
-import 'package:firebase_auth_and_login/utils/signup_utils/utilities.dart';
 import 'package:firebase_auth_and_login/utils/utilities.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpScreen extends StatelessWidget {
-  SignUpScreen({Key? key}) : super(key: key);
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +16,7 @@ class SignUpScreen extends StatelessWidget {
       // ),
       body: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: signupScreenBackgroundImage,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+          const BackgroundImageWidget(),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Center(
