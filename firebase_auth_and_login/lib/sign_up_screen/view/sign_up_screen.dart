@@ -1,13 +1,12 @@
+import 'package:firebase_auth_and_login/sign_up_screen/provider/signup_screen_provider.dart';
+import 'package:firebase_auth_and_login/utils/signup_utils/utilities.dart';
 import 'package:firebase_auth_and_login/utils/utilities.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
-  bool IsDataMatched = true;
-  var SAVED_KEY_NAME;
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +18,9 @@ class SignUpScreen extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(
-                    "https://izood.net/wp-content/uploads/2022/01/11-1.jpg"
-                    // "https://media.istockphoto.com/vectors/abstract-contemporary-nature-background-design-summer-sale-social-vector-id1299012655?k=20&m=1299012655&s=170667a&w=0&h=6cdJ_76F2yWMEEPmkvnF2MchEk35z0W5BDfYFwPQZUY="
-                    // "https://cdn.pixabay.com/photo/2016/11/01/18/38/background-1789175__340.png"
-                    // "https://1.bp.blogspot.com/-CzSTSHoIEOo/YMEU6Jeql4I/AAAAAAAAiSE/U4-w4oxMXOkaUM7HRud21aYFyf3b0-8fgCLcBGAsYHQ/s2535/V1-DESERT-HD.png",
-                    ),
+                image: signupScreenBackgroundImage,
                 fit: BoxFit.cover,
               ),
             ),
@@ -44,34 +38,56 @@ class SignUpScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 20, left: 10),
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 100),
-                        child: firstNameTextField(),
-                      ),
+                      Consumer<SignupScreenProvider>(
+                          builder: (context, firstnameValue, _) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 100),
+                          child: firstnameValue.firstNameTextField(),
+                          //  firstNameTextField(),
+                        );
+                      }),
                       hSpace10,
-                      Padding(
-                        padding: const EdgeInsets.only(right: 100),
-                        child: secondNameTextField(),
-                      ),
+                      Consumer<SignupScreenProvider>(
+                          builder: (context, secondName, _) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 100),
+                          child: secondName.secondNameTextField(),
+                        );
+                      }),
                       hSpace10,
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: emailTextField(),
-                      ),
+                      Consumer<SignupScreenProvider>(
+                          builder: (context, emailValue, _) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: emailValue.emailTextField(),
+                          // emailTextField(),
+                        );
+                      }),
                       hSpace10,
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: typePasswordTextField(),
-                      ),
+                      Consumer<SignupScreenProvider>(
+                          builder: (context, passwordValue, _) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: passwordValue.typePasswordTextField(),
+                        );
+                      }),
                       hSpace10,
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: typePasswordTextField(),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: signUPButton(context),
-                      ),
+                      Consumer<SignupScreenProvider>(
+                          builder: (context, passwordtwoValue, _) {
+                        return Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: passwordtwoValue.secondPasswordTextField()
+                            // secondPasswordTextField(),
+                            );
+                      }),
+                      Consumer<SignupScreenProvider>(
+                          builder: (context, signupValue, _) {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: signupValue.signUPButton(context),
+                          //  signUPButton(context),
+                        );
+                      }),
                     ],
                   ),
                 ),
@@ -81,120 +97,5 @@ class SignUpScreen extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  TextFormField emailTextField() {
-    return TextFormField(
-      controller: usernameController,
-      decoration: InputDecoration(
-          fillColor: Colors.white.withOpacity(0.5),
-          filled: true,
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-          ),
-          hintText: emailText),
-      validator: (_) {
-        if (IsDataMatched) {
-          return null;
-        } else {
-          return 'error';
-        }
-      },
-    );
-  }
-
-  TextFormField typePasswordTextField() {
-    return TextFormField(
-      controller: usernameController,
-      decoration: InputDecoration(
-          fillColor: Colors.white.withOpacity(0.5),
-          filled: true,
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-          ),
-          hintText: "type first password"),
-      validator: (_) {
-        if (IsDataMatched) {
-          return null;
-        } else {
-          return 'error';
-        }
-      },
-    );
-  }
-
-  Container signUPButton(BuildContext context) {
-    return Container(
-      height: 40,
-      width: 100,
-      child: TextButton(
-        style: TextButton.styleFrom(
-          backgroundColor: Colors.red,
-          minimumSize: const Size.fromHeight(50),
-        ),
-        child: const Text(
-          'Sign in',
-          style: TextStyle(fontSize: 20, color: Colors.white),
-        ),
-        onPressed: () {
-          checkLogin(context);
-        },
-      ),
-    );
-  }
-
-  TextFormField secondNameTextField() {
-    return TextFormField(
-      controller: passwordController,
-      decoration: InputDecoration(
-          fillColor: Colors.white.withOpacity(0.5),
-          filled: true,
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-          ),
-          hintText: 'Password'),
-      validator: (_) {
-        if (IsDataMatched) {
-          return null;
-        } else {
-          return 'error';
-        }
-      },
-    );
-  }
-
-  TextFormField firstNameTextField() {
-    return TextFormField(
-      controller: usernameController,
-      decoration: InputDecoration(
-          fillColor: Colors.white.withOpacity(0.5),
-          filled: true,
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-          ),
-          hintText: firstName),
-      validator: (_) {
-        if (IsDataMatched) {
-          return null;
-        } else {
-          return 'error';
-        }
-      },
-    );
-  }
-
-  void checkLogin(BuildContext ctx) async {
-    final userName = usernameController.text;
-    final password = passwordController.text;
-    if (userName == 'ritvik' && password == 'hello') {
-      //got to home
-      IsDataMatched = true;
-      final sharedPrefs = await SharedPreferences.getInstance();
-      await sharedPrefs.setBool(SAVED_KEY_NAME, true);
-      // Navigator.of(ctx).pushReplacement(
-      //     MaterialPageRoute(builder: (ctx1) => const ScreenHome()));
-    } else {
-      IsDataMatched = false;
-    }
   }
 }

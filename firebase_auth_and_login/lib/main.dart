@@ -1,5 +1,6 @@
 import 'package:firebase_auth_and_login/login_screen/provider/login_provider.dart';
 import 'package:firebase_auth_and_login/login_screen/view/login_screen.dart';
+import 'package:firebase_auth_and_login/sign_up_screen/provider/signup_screen_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => LoginScreenProvider()),
+        ChangeNotifierProvider(create: (context) => SignupScreenProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

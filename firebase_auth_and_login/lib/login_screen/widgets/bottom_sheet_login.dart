@@ -16,12 +16,7 @@ class BottomSheetLogin extends StatelessWidget {
         Container(
           height: 70,
           width: double.infinity,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20.0),
-                topLeft: Radius.circular(20.0)),
-            color: Colors.transparent,
-          ),
+          color: Colors.transparent,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
