@@ -83,23 +83,6 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  // TextButton signUpButton(BuildContext context) {
-  //   return TextButton(
-  //     child: const Text(
-  //       'Sign Up?',
-  //       style: TextStyle(fontSize: 16, color: Colors.red),
-  //     ),
-  //     onPressed: () {
-  //       // Navigator.of(context).push(
-  //       //   MaterialPageRoute(
-  //       //     builder: (context) =>  SignUpScreen(),
-  //       //   ),
-  //       // );
-  //       // checkLogin(context);
-  //     },
-  //   );
-  // }
-
   TextFormField emailTextField() {
     return TextFormField(
       controller: usernameController,
