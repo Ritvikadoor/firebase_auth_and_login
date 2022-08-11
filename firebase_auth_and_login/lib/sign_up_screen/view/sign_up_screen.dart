@@ -12,6 +12,10 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0,
+      // ),
       body: Stack(
         children: [
           Container(
@@ -31,7 +35,7 @@ class SignUpScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Center(
               child: Container(
-                height: 330,
+                height: 450,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(23),
                   color: Colors.red.withOpacity(0.2),
@@ -49,15 +53,24 @@ class SignUpScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(right: 100),
                         child: secondNameTextField(),
                       ),
+                      hSpace10,
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: emailTextField(),
+                      ),
+                      hSpace10,
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: typePasswordTextField(),
+                      ),
+                      hSpace10,
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: typePasswordTextField(),
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            loginButton(context),
-                            // signUpButton(context),
-                          ],
-                        ),
+                        child: signUPButton(context),
                       ),
                     ],
                   ),
@@ -70,24 +83,64 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  TextButton signUpButton(BuildContext context) {
-    return TextButton(
-      child: const Text(
-        'Sign Up?',
-        style: TextStyle(fontSize: 16, color: Colors.red),
-      ),
-      onPressed: () {
-        // Navigator.of(context).push(
-        //   MaterialPageRoute(
-        //     builder: (context) =>  SignUpScreen(),
-        //   ),
-        // );
-        // checkLogin(context);
+  // TextButton signUpButton(BuildContext context) {
+  //   return TextButton(
+  //     child: const Text(
+  //       'Sign Up?',
+  //       style: TextStyle(fontSize: 16, color: Colors.red),
+  //     ),
+  //     onPressed: () {
+  //       // Navigator.of(context).push(
+  //       //   MaterialPageRoute(
+  //       //     builder: (context) =>  SignUpScreen(),
+  //       //   ),
+  //       // );
+  //       // checkLogin(context);
+  //     },
+  //   );
+  // }
+
+  TextFormField emailTextField() {
+    return TextFormField(
+      controller: usernameController,
+      decoration: InputDecoration(
+          fillColor: Colors.white.withOpacity(0.5),
+          filled: true,
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          hintText: emailText),
+      validator: (_) {
+        if (IsDataMatched) {
+          return null;
+        } else {
+          return 'error';
+        }
       },
     );
   }
 
-  Container loginButton(BuildContext context) {
+  TextFormField typePasswordTextField() {
+    return TextFormField(
+      controller: usernameController,
+      decoration: InputDecoration(
+          fillColor: Colors.white.withOpacity(0.5),
+          filled: true,
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          hintText: "type first password"),
+      validator: (_) {
+        if (IsDataMatched) {
+          return null;
+        } else {
+          return 'error';
+        }
+      },
+    );
+  }
+
+  Container signUPButton(BuildContext context) {
     return Container(
       height: 40,
       width: 100,
@@ -97,7 +150,7 @@ class SignUpScreen extends StatelessWidget {
           minimumSize: const Size.fromHeight(50),
         ),
         child: const Text(
-          'Login',
+          'Sign in',
           style: TextStyle(fontSize: 20, color: Colors.white),
         ),
         onPressed: () {
