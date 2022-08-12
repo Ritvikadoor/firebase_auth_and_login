@@ -29,6 +29,11 @@ NetworkImage loginBackgroundImage = const NetworkImage(
     // "https://cdn.pixabay.com/photo/2016/11/01/18/38/background-1789175__340.png"
     // "https://1.bp.blogspot.com/-CzSTSHoIEOo/YMEU6Jeql4I/AAAAAAAAiSE/U4-w4oxMXOkaUM7HRud21aYFyf3b0-8fgCLcBGAsYHQ/s2535/V1-DESERT-HD.png",
     );
+NetworkImage homeBackgroundImage = const NetworkImage(
+    "https://i.pinimg.com/736x/2f/dc/ee/2fdceea93287e90de5a16bf430a4bb36.jpg"
+    // "https://cdn.pixabay.com/photo/2016/11/01/18/38/background-1789175__340.png"
+    // "https://1.bp.blogspot.com/-CzSTSHoIEOo/YMEU6Jeql4I/AAAAAAAAiSE/U4-w4oxMXOkaUM7HRud21aYFyf3b0-8fgCLcBGAsYHQ/s2535/V1-DESERT-HD.png",
+    );
 SizedBox hSpace10 = SizedBox(
   height: 10,
 );

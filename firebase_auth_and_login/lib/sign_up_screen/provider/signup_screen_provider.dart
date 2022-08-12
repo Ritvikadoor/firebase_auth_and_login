@@ -1,3 +1,4 @@
+import 'package:firebase_auth_and_login/home_screen/view/home_screen.dart';
 import 'package:firebase_auth_and_login/utils/utilities.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -123,6 +124,11 @@ class SignupScreenProvider with ChangeNotifier {
         ),
         onPressed: () {
           checkLogin(context);
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const HomeScreen(),
+            ),
+          );
         },
       ),
     );
