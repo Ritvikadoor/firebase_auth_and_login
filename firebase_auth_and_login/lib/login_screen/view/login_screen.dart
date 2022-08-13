@@ -15,13 +15,14 @@ class LoginScreen extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(color: Color.fromARGB(255, 173, 218, 255)
-                // image: DecorationImage(
+            decoration:
+                const BoxDecoration(color: Color.fromARGB(255, 173, 218, 255)
+                    // image: DecorationImage(
 
-                //   // image: loginBackgroundImage, // <-- BACKGROUND IMAGE
-                //   fit: BoxFit.cover,
-                // ),
-                ),
+                    //   // image: loginBackgroundImage, // <-- BACKGROUND IMAGE
+                    //   fit: BoxFit.cover,
+                    // ),
+                    ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 28),
