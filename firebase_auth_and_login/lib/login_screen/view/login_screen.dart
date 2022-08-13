@@ -1,6 +1,6 @@
 import 'package:firebase_auth_and_login/login_screen/provider/login_provider.dart';
 import 'package:firebase_auth_and_login/login_screen/widgets/bottom_sheet_login.dart';
-import 'package:firebase_auth_and_login/utils/utilities.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -62,6 +62,7 @@ class LoginScreen extends StatelessWidget {
                           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             // loginButton(context),
+
                             value.loginButton(context),
                             value.signUpButton(context),
                             // signUpButton(context),

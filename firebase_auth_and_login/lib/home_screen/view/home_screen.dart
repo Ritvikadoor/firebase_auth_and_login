@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_and_login/login_screen/view/login_screen.dart';
 import 'package:firebase_auth_and_login/services/auth_provider.dart';
-import 'package:firebase_auth_and_login/utils/utilities.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,20 +12,19 @@ class HomeScreen extends StatelessWidget {
     return StreamBuilder<User?>(
         stream: context.watch<AuthProvider>().stream(),
         builder: (context, snapshot) {
-          if (snapshot.hasData) return LoginScreen();
-
+          if (!snapshot.hasData) return LoginScreen();
           return Scaffold(
             // appBar: AppBar(),
             body: SafeArea(
               child: Stack(
                 children: [
                   Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: homeBackgroundImage, // <-- BACKGROUND IMAGE
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    decoration: const BoxDecoration(color: Colors.blue
+                        // image: DecorationImage(
+                        //   image: homeBackgroundImage, // <-- BACKGROUND IMAGE
+                        //   fit: BoxFit.cover,
+                        // ),
+                        ),
                   ),
                   // Column(
                   //   children: [
@@ -43,6 +41,11 @@ class HomeScreen extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
+                      IconButton(
+                          onPressed: () {
+                            context.read<AuthProvider>().signOut();
+                          },
+                          icon: const Icon(Icons.logout)),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 30),

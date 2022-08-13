@@ -1,11 +1,15 @@
+import 'package:firebase_auth_and_login/home_screen/view/home_screen.dart';
+import 'package:firebase_auth_and_login/services/auth_provider.dart';
 import 'package:firebase_auth_and_login/sign_up_screen/view/sign_up_screen.dart';
 import 'package:firebase_auth_and_login/utils/utilities.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreenProvider with ChangeNotifier {
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _pass = TextEditingController();
+
   bool IsDataMatched = true;
   var SAVED_KEY_NAME;
 
@@ -26,44 +30,24 @@ class LoginScreenProvider with ChangeNotifier {
     );
   }
 
-  Container loginButton(BuildContext context) {
-    return Container(
-      height: 40,
-      width: 100,
-      child: TextButton(
-        style: TextButton.styleFrom(
-          backgroundColor: Colors.red,
-          minimumSize: const Size.fromHeight(50),
-        ),
-        child: const Text(
-          'Login',
-          style: TextStyle(fontSize: 20, color: Colors.white),
-        ),
-        onPressed: () {
-          checkLogin(context);
-        },
-      ),
-    );
-  }
+  // void checkLogin(BuildContext ctx) async {
+  //   final userName = _email.text;
+  //   final password = _pass.text;
 
-  void checkLogin(BuildContext ctx) async {
-    final userName = usernameController.text;
-    final password = passwordController.text;
-    if (userName == 'ritvik' && password == 'hello') {
-      //got to home
-      IsDataMatched = true;
-      final sharedPrefs = await SharedPreferences.getInstance();
-      await sharedPrefs.setBool(SAVED_KEY_NAME, true);
-      // Navigator.of(ctx).pushReplacement(
-      //     MaterialPageRoute(builder: (ctx1) => const ScreenHome()));
-    } else {
-      IsDataMatched = false;
-    }
-  }
+  //   if (userName == 'ritvik' && password == 'hello') {
+  //     //got to home
+  //     IsDataMatched = true;
+  //     // final sharedPrefs = await SharedPreferences.getInstance();
+  //     // await sharedPrefs.setBool(SAVED_KEY_NAME, true);
+
+  //   } else {
+  //     IsDataMatched = false;
+  //   }
+  // }
 
   TextFormField passwordTextField() {
     return TextFormField(
-      controller: passwordController,
+      controller: _pass,
       decoration: InputDecoration(
           fillColor: Colors.black.withOpacity(0.2),
           filled: true,
@@ -83,7 +67,7 @@ class LoginScreenProvider with ChangeNotifier {
 
   TextFormField emailTextField() {
     return TextFormField(
-      controller: usernameController,
+      controller: _email,
       decoration: InputDecoration(
           fillColor: Colors.black.withOpacity(0.2),
           filled: true,
@@ -98,6 +82,37 @@ class LoginScreenProvider with ChangeNotifier {
           return 'error';
         }
       },
+    );
+  }
+
+  Container loginButton(BuildContext context) {
+    void signIn(AuthProvider provider) async {
+      final msg = await provider.signIn(_email.text, _pass.text);
+      if (msg == "") return;
+
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+    }
+
+    final authProvider = context.watch<AuthProvider>();
+    return Container(
+      height: 40,
+      width: 100,
+      child: TextButton(
+        style: TextButton.styleFrom(
+          backgroundColor: Colors.red,
+          minimumSize: const Size.fromHeight(50),
+        ),
+        child: const Text(
+          'Login',
+          style: TextStyle(fontSize: 20, color: Colors.white),
+        ),
+        onPressed: () {
+          signIn(authProvider);
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (ctx1) => const HomeScreen()));
+        },
+      ),
     );
   }
 }
