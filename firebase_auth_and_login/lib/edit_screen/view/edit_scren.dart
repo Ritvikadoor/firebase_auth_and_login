@@ -9,11 +9,18 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-class EditScreen extends StatelessWidget {
+class EditScreen extends StatefulWidget {
   EditScreen({Key? key}) : super(key: key);
+
+  @override
+  State<EditScreen> createState() => _EditScreenState();
+}
+
+class _EditScreenState extends State<EditScreen> {
   String imgstring = '';
 
   File? imageFile;
+
   changeImage(String imgstring) {
     this.imgstring = imgstring;
   }
@@ -26,16 +33,24 @@ class EditScreen extends StatelessWidget {
     });
   }
 
+  final CollectionReference profileList =
+      FirebaseFirestore.instance.collection("profileInfo");
+
+  // Future<void> updateUser(
+  //     String title, String number, String place, String id) async {
+  //   return await profileList.doc(id).update(({
+  //         "title": title,
+  //         "number": number,
+  //         "place": place,
+  //       }));
+  // }
+
 //   @override
-//   State<EditScreen> createState() => _ScreenAddState();
-// }
-
-// class _ScreenAddState extends State<HomeScreen> {
-  // final _formkey = GlobalKey<FormState>();
   final _nameControllerfb = TextEditingController();
-  final _editnameController = TextEditingController();
-  // final _ageController = TextEditingController();
 
+  final _editnameController = TextEditingController();
+
+  // final _ageController = TextEditingController();
   final _phoneNumberControllerfb = TextEditingController();
 
   final _placeControllerfb = TextEditingController();
@@ -46,179 +61,171 @@ class EditScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-        stream: context.watch<AuthProvider>().stream(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) return LoginScreen();
-          return Scaffold(
-            appBar: AppBar(
-              toolbarHeight: 80,
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              // leading: Padding(
-              //   padding: EdgeInsets.all(8.0),
-              //   child:
-              // ),
-              actions: [
-                IconButton(
-                    onPressed: () {
-                      context.read<AuthProvider>().signOut();
-                    },
-                    icon: const Icon(
-                      Icons.logout,
-                      color: Colors.black,
-                    )),
-              ],
-            ),
-            body: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(left: 10, top: 20),
-                      child: Text(
-                        'EDIT STUDENT',
-                        style: TextStyle(
-                            fontSize: 40, fontWeight: FontWeight.bold),
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 80,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        // leading: Padding(
+        //   padding: EdgeInsets.all(8.0),
+        //   child:
+        // ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                context.read<AuthProvider>().signOut();
+              },
+              icon: const Icon(
+                Icons.logout,
+                color: Colors.black,
+              )),
+        ],
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(left: 10, top: 20),
+                child: Text(
+                  'EDIT STUDENT',
+                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Expanded(
+                child: ClipOval(
+                  // child: Container(),
+                  child: imageprofile(context),
+                ),
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 219, 219, 219),
+                    borderRadius: BorderRadius.circular(10)),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        controller: _nameControllerfb,
+                        decoration: InputDecoration(
+                            fillColor: Colors.white,
+                            filled: true,
+                            hintText: 'Enter Student Name',
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(20))),
                       ),
-                    ),
-                    Expanded(
-                      child: ClipOval(
-                        // child: Container(),
-                        child: imageprofile(context),
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 219, 219, 219),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          children: [
-                            TextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                              controller: _nameControllerfb,
-                              decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  hintText: 'Enter Student Name',
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.circular(20))),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            // TextFormField(
-                            //   validator: (value) {
-                            //     if (value == null || value.isEmpty) {
-                            //       return 'Please enter some text';
-                            //     }
-                            //     return null;
-                            //   },
-                            //   controller: _ageController,
-                            //   decoration: InputDecoration(
-                            //       fillColor: Colors.white,
-                            //       filled: true,
-                            //       hintText: 'Enter Age',
-                            //       border: OutlineInputBorder(
-                            //           borderSide: BorderSide.none,
-                            //           borderRadius:
-                            //               BorderRadius.circular(20))),
-                            // ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                              controller: _phoneNumberControllerfb,
-                              decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  hintText: 'Enter the Number',
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.circular(20))),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                              controller: _placeControllerfb,
-                              decoration: InputDecoration(
-                                fillColor: Colors.white,
-                                filled: true,
-                                hintText: 'Enter Place',
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                          ],
-                        ),
+                      // TextFormField(
+                      //   validator: (value) {
+                      //     if (value == null || value.isEmpty) {
+                      //       return 'Please enter some text';
+                      //     }
+                      //     return null;
+                      //   },
+                      //   controller: _ageController,
+                      //   decoration: InputDecoration(
+                      //       fillColor: Colors.white,
+                      //       filled: true,
+                      //       hintText: 'Enter Age',
+                      //       border: OutlineInputBorder(
+                      //           borderSide: BorderSide.none,
+                      //           borderRadius:
+                      //               BorderRadius.circular(20))),
+                      // ),
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.black),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
+                      TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        controller: _phoneNumberControllerfb,
+                        decoration: InputDecoration(
+                            fillColor: Colors.white,
+                            filled: true,
+                            hintText: 'Enter the Number',
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(20))),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        controller: _placeControllerfb,
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          hintText: 'Enter Place',
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(20),
                           ),
                         ),
                       ),
-                      onPressed: () {
-                        _addTask();
-                        // print(_nameControllerfb.text);
-                        // if (_formkey.currentState!.validate()) {
-                        //   ScaffoldMessenger.of(context).showSnackBar(
-                        //     const SnackBar(
-                        //       content: Text('Processing Data'),
-                        //     ),
-                        //   );
-
-                        //   Navigator.of(context).pop();
-                        // }
-                        // onAddStudentButtonClicked(context);
-                      },
-                      child: const Text('Add Student'),
-                    )
-                  ],
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        });
+              const SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.black),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  _addTask();
+                  // print(_nameControllerfb.text);
+                  // if (_formkey.currentState!.validate()) {
+                  //   ScaffoldMessenger.of(context).showSnackBar(
+                  //     const SnackBar(
+                  //       content: Text('Processing Data'),
+                  //     ),
+                  //   );
+
+                  //   Navigator.of(context).pop();
+                  // }
+                  // onAddStudentButtonClicked(context);
+                },
+                child: const Text('Add Student'),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Future<void> takePhoto(BuildContext context) async {
@@ -314,24 +321,4 @@ class EditScreen extends StatelessWidget {
       ],
     );
   }
-
-  // Future<void> onAddStudentButtonClicked(BuildContext context) async {
-  //   final name = _nameController.text;
-  //   final age = _ageController.text;
-  //   final phoneNumber = _phoneNumberController.text;
-  //   final place = _placeController.text;
-  //   final imgstri = _picker;
-  //   if (name.isEmpty || age.isEmpty || phoneNumber.isEmpty || place.isEmpty) {
-  //     return;
-  //   } else {
-  //     // final _student = await StudentModel(
-  //     //     name: name,
-  //     //     age: age,
-  //     //     phoneNumber: phoneNumber,
-  //     //     place: place,
-  //     //     imgstri: context.read().imgstring);
-
-  //     // context.read().addStudent(_student);
-  //   }
-  // }
 }
