@@ -30,14 +30,14 @@ class SignUpScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 20, left: 10),
                   child: Column(
                     children: [
-                      // Consumer<SignupScreenProvider>(
-                      //     builder: (context, firstnameValue, _) {
-                      //   return Padding(
-                      //     padding: const EdgeInsets.only(right: 100),
-                      //     child: firstnameValue.firstNameTextField(),
-                      //     //  firstNameTextField(),
-                      //   );
-                      // }),
+                      Consumer<SignupScreenProvider>(
+                          builder: (context, firstnameValue, _) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 100),
+                          child: firstnameValue.firstNameTextField(),
+                          //  firstNameTextField(),
+                        );
+                      }),
                       hSpace10,
                       hSpace10,
                       Consumer<SignupScreenProvider>(

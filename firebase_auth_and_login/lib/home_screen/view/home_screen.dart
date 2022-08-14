@@ -14,12 +14,35 @@ class HomeScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (!snapshot.hasData) return LoginScreen();
           return Scaffold(
-            // appBar: AppBar(),
+            appBar: AppBar(
+              toolbarHeight: 80,
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              leading: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: InkWell(
+                  child: CircleAvatar(
+                    radius: 40,
+                    backgroundColor: Colors.black,
+                  ),
+                ),
+              ),
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      context.read<AuthProvider>().signOut();
+                    },
+                    icon: const Icon(
+                      Icons.logout,
+                      color: Colors.white,
+                    )),
+              ],
+            ),
             body: SafeArea(
               child: Stack(
                 children: [
                   Container(
-                    decoration: const BoxDecoration(color: Colors.blue
+                    decoration: const BoxDecoration(color: Colors.white
                         // image: DecorationImage(
                         //   image: homeBackgroundImage, // <-- BACKGROUND IMAGE
                         //   fit: BoxFit.cover,
@@ -38,26 +61,17 @@ class HomeScreen extends StatelessWidget {
                   //         ),
                   //       ),
                   //     ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            context.read<AuthProvider>().signOut();
-                          },
-                          icon: const Icon(Icons.logout)),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 30),
-                        child: Container(
-                          height: 540,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(23),
-                            color: Colors.black.withOpacity(0.5),
-                          ),
-                        ),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 30),
+                    child: Container(
+                      height: 540,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(23),
+                        color: Colors.white.withOpacity(0.5),
                       ),
-                    ],
+                    ),
                   )
                   //   ],
                   // ),
