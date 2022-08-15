@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth_and_login/home_screen/view/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class AuthProvider extends ChangeNotifier {
@@ -29,16 +28,12 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<String> signUp(
-      String email, String password, BuildContext context) async {
+  Future<String> signUp(String email, String password) async {
     try {
       _isLoading = true;
       notifyListeners();
-      await _fa
-          .createUserWithEmailAndPassword(
-              email: email.trim(), password: password.trim())
-          .then((value) => Navigator.of(context)
-              .push(MaterialPageRoute(builder: ((context) => HomeScreen()))));
+      await _fa.createUserWithEmailAndPassword(
+          email: email.trim(), password: password.trim());
       _isLoading = false;
       notifyListeners();
       return Future.value('');
