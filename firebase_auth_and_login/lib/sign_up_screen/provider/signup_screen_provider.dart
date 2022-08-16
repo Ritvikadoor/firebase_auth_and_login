@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupScreenProvider with ChangeNotifier {
+  final emailController = TextEditingController();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   bool IsDataMatched = true;
@@ -29,29 +30,9 @@ class SignupScreenProvider with ChangeNotifier {
     );
   }
 
-  TextFormField secondNameTextField() {
-    return TextFormField(
-      controller: passwordController,
-      decoration: InputDecoration(
-          fillColor: Colors.white.withOpacity(0.5),
-          filled: true,
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-          ),
-          hintText: 'Password'),
-      validator: (_) {
-        if (IsDataMatched) {
-          return null;
-        } else {
-          return 'error';
-        }
-      },
-    );
-  }
-
   TextFormField emailTextField() {
     return TextFormField(
-      controller: usernameController,
+      controller: emailController,
       decoration: InputDecoration(
           fillColor: Colors.white.withOpacity(0.5),
           filled: true,
@@ -71,34 +52,14 @@ class SignupScreenProvider with ChangeNotifier {
 
   TextFormField typePasswordTextField() {
     return TextFormField(
-      controller: usernameController,
+      controller: passwordController,
       decoration: InputDecoration(
           fillColor: Colors.white.withOpacity(0.5),
           filled: true,
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
-          hintText: "type first password"),
-      validator: (_) {
-        if (IsDataMatched) {
-          return null;
-        } else {
-          return 'error';
-        }
-      },
-    );
-  }
-
-  TextFormField secondPasswordTextField() {
-    return TextFormField(
-      controller: usernameController,
-      decoration: InputDecoration(
-          fillColor: Colors.white.withOpacity(0.5),
-          filled: true,
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-          ),
-          hintText: "type first password"),
+          hintText: "Type  password"),
       validator: (_) {
         if (IsDataMatched) {
           return null;
@@ -119,7 +80,7 @@ class SignupScreenProvider with ChangeNotifier {
           minimumSize: const Size.fromHeight(50),
         ),
         child: const Text(
-          'Sign in',
+          'Sign Up',
           style: TextStyle(fontSize: 20, color: Colors.white),
         ),
         onPressed: () {

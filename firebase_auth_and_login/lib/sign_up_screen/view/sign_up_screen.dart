@@ -10,10 +10,10 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      // ),
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        elevation: 0,
+      ),
       body: Stack(
         children: [
           const BackgroundImageWidget(),
@@ -21,7 +21,7 @@ class SignUpScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Center(
               child: Container(
-                height: 450,
+                height: 350,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(23),
                   color: Colors.red.withOpacity(0.2),
@@ -39,13 +39,6 @@ class SignUpScreen extends StatelessWidget {
                         );
                       }),
                       hSpace10,
-                      Consumer<SignupScreenProvider>(
-                          builder: (context, secondName, _) {
-                        return Padding(
-                          padding: const EdgeInsets.only(right: 100),
-                          child: secondName.secondNameTextField(),
-                        );
-                      }),
                       hSpace10,
                       Consumer<SignupScreenProvider>(
                           builder: (context, emailValue, _) {
@@ -64,14 +57,6 @@ class SignUpScreen extends StatelessWidget {
                         );
                       }),
                       hSpace10,
-                      Consumer<SignupScreenProvider>(
-                          builder: (context, passwordtwoValue, _) {
-                        return Padding(
-                            padding: const EdgeInsets.only(right: 20),
-                            child: passwordtwoValue.secondPasswordTextField()
-                            // secondPasswordTextField(),
-                            );
-                      }),
                       Consumer<SignupScreenProvider>(
                           builder: (context, signupValue, _) {
                         return Padding(
