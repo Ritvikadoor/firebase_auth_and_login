@@ -36,50 +36,38 @@ class _EditScreenState extends State<EditScreen> {
   final CollectionReference profileList =
       FirebaseFirestore.instance.collection("profileInfo");
 
-  // Future<void> updateUser(
-  //     String title, String number, String place, String id) async {
-  //   return await profileList.doc(id).update(({
-  //         "title": title,
-  //         "number": number,
-  //         "place": place,
-  //       }));
-  // }
-
-//   @override
   final _nameControllerfb = TextEditingController();
 
   final _editnameController = TextEditingController();
 
-  // final _ageController = TextEditingController();
   final _phoneNumberControllerfb = TextEditingController();
 
   final _placeControllerfb = TextEditingController();
 
   File? imagefile;
 
-  final ImagePicker _picker = ImagePicker();
-
+  final ImagePicker picker = ImagePicker();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
         elevation: 0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.red,
         // leading: Padding(
         //   padding: EdgeInsets.all(8.0),
         //   child:
         // ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                context.read<AuthProvider>().signOut();
-              },
-              icon: const Icon(
-                Icons.logout,
-                color: Colors.black,
-              )),
-        ],
+        // actions: [
+        //   IconButton(
+        //       onPressed: () {
+        //         context.read<AuthProvider>().signOut();
+        //       },
+        //       icon: const Icon(
+        //         Icons.logout,
+        //         color: Colors.black,
+        //       )),
+        // ],
       ),
       body: SafeArea(
         child: Padding(
@@ -126,26 +114,6 @@ class _EditScreenState extends State<EditScreen> {
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(20))),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      // TextFormField(
-                      //   validator: (value) {
-                      //     if (value == null || value.isEmpty) {
-                      //       return 'Please enter some text';
-                      //     }
-                      //     return null;
-                      //   },
-                      //   controller: _ageController,
-                      //   decoration: InputDecoration(
-                      //       fillColor: Colors.white,
-                      //       filled: true,
-                      //       hintText: 'Enter Age',
-                      //       border: OutlineInputBorder(
-                      //           borderSide: BorderSide.none,
-                      //           borderRadius:
-                      //               BorderRadius.circular(20))),
-                      // ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -207,17 +175,6 @@ class _EditScreenState extends State<EditScreen> {
                 ),
                 onPressed: () {
                   _addTask();
-                  // print(_nameControllerfb.text);
-                  // if (_formkey.currentState!.validate()) {
-                  //   ScaffoldMessenger.of(context).showSnackBar(
-                  //     const SnackBar(
-                  //       content: Text('Processing Data'),
-                  //     ),
-                  //   );
-
-                  //   Navigator.of(context).pop();
-                  // }
-                  // onAddStudentButtonClicked(context);
                 },
                 child: const Text('Add Student'),
               )
@@ -230,29 +187,18 @@ class _EditScreenState extends State<EditScreen> {
 
   Future<void> takePhoto(BuildContext context) async {
     XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
-
     if (image == null) return;
-
     File imageTemprary = File(image.path);
     final bayts = File(image.path).readAsBytesSync();
     String encode = base64Encode(bayts);
-
-    // context.read<FunctionProvider>().imgstring = encode;
-    // context.read<FunctionProvider>().changeImage(encode);
   }
 
   Future<void> takecamera(BuildContext context) async {
     XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
-
     if (image == null) return;
-
     final imageTemprary = File(image.path);
-
     final bayts = File(image.path).readAsBytesSync();
     String encode = base64Encode(bayts);
-
-    // context.read<FunctionProvider>().imgstring = encode;
-    // context.read<FunctionProvider>().changeImage(encode);
   }
 
   Future<void> showBottomSheet(BuildContext context) async {

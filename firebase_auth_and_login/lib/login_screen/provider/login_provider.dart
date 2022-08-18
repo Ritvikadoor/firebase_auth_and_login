@@ -108,7 +108,8 @@ class LoginScreenProvider with ChangeNotifier {
           style: TextStyle(fontSize: 20, color: Colors.white),
         ),
         onPressed: () {
-          signIn(authProvider);
+          if (authProvider.loading) CircularProgressIndicator();
+          if (!authProvider.loading) signIn(authProvider);
           // Navigator.of(context).pushReplacement(
           // MaterialPageRoute(builder: (ctx1) => const HomeScreen()));
         },

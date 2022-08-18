@@ -29,22 +29,10 @@ class HomeScreen extends StatelessWidget {
     });
   }
 
-//   @override
-//   State<HomeScreen> createState() => _ScreenAddState();
-// }
-
-// class _ScreenAddState extends State<HomeScreen> {
-  // final _formkey = GlobalKey<FormState>();
   final _nameControllerfb = TextEditingController();
-
-  // final _ageController = TextEditingController();
-
   final _phoneNumberControllerfb = TextEditingController();
-
   final _placeControllerfb = TextEditingController();
-
   File? imagefile;
-
   final ImagePicker _picker = ImagePicker();
 
   @override
@@ -65,10 +53,6 @@ class HomeScreen extends StatelessWidget {
               toolbarHeight: 80,
               elevation: 0,
               backgroundColor: Colors.transparent,
-              // leading: Padding(
-              //   padding: EdgeInsets.all(8.0),
-              //   child:
-              // ),
               actions: [
                 IconButton(
                     onPressed: () {
@@ -89,23 +73,24 @@ class HomeScreen extends StatelessWidget {
                     return Center(child: CircularProgressIndicator());
                   }
                   return SafeArea(
-                    child: ListView(
-                      children: [
-                        Column(
-                          children: snapshot.data!.docs.map((document) {
-                            return ListTile(
-                              title: Text(document["title"]),
-                              subtitle: Text(document["place"]),
-                              // leading: Text(document["number"]),
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => EditScreen()));
-                              },
-                            );
-                          }).toList(),
-                        ),
-                      ],
-                    ),
+                    child: Container(),
+                    // ListView(
+                    //   children: [
+                    //     Column(
+                    //       children: snapshot.data!.docs.map((document) {
+                    //         return ListTile(
+                    //           leading: CircleAvatar(radius: 40),
+                    //           title: Text(document["title"]),
+                    //           subtitle: Text(document["place"]),
+                    //           onTap: () {
+                    //             Navigator.of(context).push(MaterialPageRoute(
+                    //                 builder: (context) => EditScreen()));
+                    //           },
+                    //         );
+                    //       }).toList(),
+                    //     ),
+                    //   ],
+                    // ),
                   );
                 }),
           );
