@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth_and_login/services/img_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class AddScreen extends StatelessWidget {
   AddScreen({Key? key}) : super(key: key);
@@ -29,7 +31,7 @@ class AddScreen extends StatelessWidget {
         "title": nameControllerfb.text,
         "number": phoneNumberControllerfb.text,
         "place": placeControllerfb.text,
-        "image": imgstring.toString(),
+        "image": context.read<ScreenProvider>().imageAvtr,
       });
     }
 

@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_and_login/home_screen/view/home_screen.dart';
-import 'package:firebase_auth_and_login/home_screen/widgets/backgroundimage_widget.dart';
 import 'package:firebase_auth_and_login/services/auth_provider.dart';
 import 'package:firebase_auth_and_login/sign_up_screen/provider/signup_screen_provider.dart';
 import 'package:firebase_auth_and_login/utils/utilities.dart';
@@ -24,7 +23,6 @@ class SignUpScreen extends StatelessWidget {
             ),
             body: Stack(
               children: [
-                const BackgroundImageWidget(),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Center(
