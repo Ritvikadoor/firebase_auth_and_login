@@ -1,12 +1,7 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth_and_login/login_screen/view/login_screen.dart';
 import 'package:firebase_auth_and_login/services/auth_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -42,6 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   IconButton(
                       onPressed: () {
                         context.read<AuthProvider>().signOut();
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => LoginScreen()));
                       },
                       icon: const Icon(
                         Icons.logout,

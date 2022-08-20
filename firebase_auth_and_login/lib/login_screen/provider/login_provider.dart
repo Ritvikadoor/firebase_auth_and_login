@@ -1,10 +1,8 @@
-import 'package:firebase_auth_and_login/home_screen/view/home_screen.dart';
 import 'package:firebase_auth_and_login/services/auth_provider.dart';
 import 'package:firebase_auth_and_login/sign_up_screen/view/sign_up_screen.dart';
 import 'package:firebase_auth_and_login/utils/utilities.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreenProvider with ChangeNotifier {
   final TextEditingController _email = TextEditingController();
@@ -29,21 +27,6 @@ class LoginScreenProvider with ChangeNotifier {
       },
     );
   }
-
-  // void checkLogin(BuildContext ctx) async {
-  //   final userName = _email.text;
-  //   final password = _pass.text;
-
-  //   if (userName == 'ritvik' && password == 'hello') {
-  //     //got to home
-  //     IsDataMatched = true;
-  //     // final sharedPrefs = await SharedPreferences.getInstance();
-  //     // await sharedPrefs.setBool(SAVED_KEY_NAME, true);
-
-  //   } else {
-  //     IsDataMatched = false;
-  //   }
-  // }
 
   TextFormField passwordTextField() {
     return TextFormField(
